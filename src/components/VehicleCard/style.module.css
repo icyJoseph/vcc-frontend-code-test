@@ -1,0 +1,29 @@
+.cardTitle {
+  display: block;
+}
+
+.cardHeader,
+.cardContent,
+.cardFooter {
+  padding-bottom: 1rem;
+}
+
+.cardSubTitle {
+  text-transform: uppercase;
+}
+
+.cardImage {
+  display: block;
+}
+
+.cardFooter {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+}
+
+@media (min-width: 1024px) {
+  .cardTitle {
+    display: inline;
+  }
+}

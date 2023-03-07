@@ -1,0 +1,47 @@
+.wrapper {
+  position: relative;
+  overflow: hidden;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  scroll-behavior: smooth;
+
+  scroll-snap-type: x mandatory;
+
+  overflow-x: auto;
+  -ms-overflow-style: none; /* IE 11 */
+  scrollbar-width: none; /* Firefox 64 */
+}
+
+.list::-webkit-scrollbar {
+  display: none;
+}
+
+.listItem {
+  width: 80%;
+  flex-shrink: 0;
+  scroll-snap-align: start;
+  padding: 0 1rem;
+
+  position: relative;
+}
+
+.sentry {
+  width: 1px;
+  height: 1px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
+
+@media (min-width: 1024px) {
+  .listItem {
+    width: 25%;
+  }
+}

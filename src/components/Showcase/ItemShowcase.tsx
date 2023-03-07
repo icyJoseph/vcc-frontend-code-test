@@ -1,4 +1,4 @@
-import { useEffect, useRef, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 
 import { useVisibleSubscription } from "@/hooks/useVisibleSubscription";
 import style from "./style.module.css";
@@ -19,6 +19,7 @@ export const ItemShowCase = <Data,>({
   onVisibilityChange?: VoidVisibilityChangeCallback<Data>;
   item: Data;
 }) => {
+  const [isVisible, setIsVisible] = useState(false);
   const [observerRef, subscribe] = useVisibleSubscription();
   const itemRef = useRef<HTMLLIElement>(null);
 
@@ -35,17 +36,22 @@ export const ItemShowCase = <Data,>({
   }, [isActive, observerRef]);
 
   useEffect(() => {
-    const disconnect = subscribe((visible) =>
-      onVisibilityChange?.(item, visible)
-    );
+    const disconnect = subscribe((visible) => {
+      onVisibilityChange?.(item, visible);
+      setIsVisible(visible);
+    });
 
     return disconnect;
   }, [subscribe, onVisibilityChange, item]);
 
   return (
-    <li className={style.listItem} ref={itemRef}>
-      {/* this is a sentry for intersection */}
-      <span ref={observerRef} aria-hidden="true" className={style.sentry} />
+    <li
+      className={style.listItem}
+      ref={itemRef}
+      aria-hidden={isVisible ? "false" : "true"}
+    >
+      {/* this is a sentinel for intersection */}
+      <span ref={observerRef} aria-hidden="true" className={style.sentinel} />
       {children}
     </li>
   );

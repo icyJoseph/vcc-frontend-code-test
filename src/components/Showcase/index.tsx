@@ -1,4 +1,5 @@
-import { ReactElement, useCallback, useRef, useState } from "react";
+import { ReactElement, useCallback, useId, useRef, useState } from "react";
+import { VisuallyHidden } from "../VisuallyHidden";
 import { ItemShowCase } from "./ItemShowcase";
 import style from "./style.module.css";
 
@@ -12,10 +13,8 @@ const calcVisibleBounds = <T extends Record<"id", unknown>>(
   visibleItems: WithVisibility<T>[]
 ) => {
   const firstVisibleIndex = visibleItems.findIndex((item) => item.isVisible);
-  const lastVisibleIndex =
-    firstVisibleIndex +
-    visibleItems.slice(firstVisibleIndex + 1).filter((item) => item.isVisible)
-      .length;
+  const visibleCount = visibleItems.filter((item) => item.isVisible).length;
+  const lastVisibleIndex = firstVisibleIndex + (visibleCount - 1);
 
   return [firstVisibleIndex, lastVisibleIndex];
 };
@@ -29,6 +28,8 @@ export const Showcase = <Data extends Record<"id", string>>({
 }) => {
   const [activeItem, setActiveItem] = useState<Data | null>(null);
   const [visibleItems, setVisibleItems] = useState<WithVisibility<Data>[]>([]);
+
+  const listId = useId();
 
   const listRef = useRef<HTMLUListElement>(null);
 
@@ -70,7 +71,12 @@ export const Showcase = <Data extends Record<"id", string>>({
 
   return (
     <div className={style.wrapper}>
-      <ul className={style.list} ref={listRef}>
+      <ul
+        id={listId}
+        className={style.list}
+        ref={listRef}
+        title={`A list with ${items.length} Recharge vehicles`}
+      >
         {items.map((item) => (
           <ItemShowCase
             key={item.id}
@@ -83,27 +89,46 @@ export const Showcase = <Data extends Record<"id", string>>({
         ))}
       </ul>
 
-      <nav role="navigation" aria-label="Navigate through vehicles">
-        <ul>
-          {items.map((item) => (
-            <li key={item.id}>
-              <button
+      <nav
+        className={style.spotlightNav}
+        aria-label="Put a vehicle on the spotlight"
+        aria-controls={listId}
+      >
+        <ul className={style.spotlightControls}>
+          {items.map((item, index) => (
+            <li key={item.id} aria-label={`Navigate to ${index + 1}`}>
+              <a
+                className={style.spotlightControlItem}
                 onClick={() => {
                   setActiveItem(item);
                 }}
+                aria-current={activeItem === item ? "true" : "false"}
               >
-                {item.id}
-              </button>
+                <VisuallyHidden>Move to {index + 1}</VisuallyHidden>
+              </a>
             </li>
           ))}
         </ul>
       </nav>
 
-      <div>
-        <button disabled={disableMoveBack} onClick={moveBack}>
+      <div
+        className={style.movingButtons}
+        role="navigation"
+        aria-controls={listId}
+        aria-label="Move through vehicle list"
+      >
+        <button
+          disabled={disableMoveBack}
+          onClick={moveBack}
+          aria-label="previous"
+        >
           Back
         </button>
-        <button disabled={disableMoveForward} onClick={moveForward}>
+        <button
+          disabled={disableMoveForward}
+          onClick={moveForward}
+          aria-label="next"
+        >
           Fwd
         </button>
       </div>

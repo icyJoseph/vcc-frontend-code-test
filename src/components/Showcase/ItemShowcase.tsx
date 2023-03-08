@@ -9,12 +9,10 @@ type VoidVisibilityChangeCallback<Data> = (
 ) => void;
 
 export const ItemShowCase = <Data,>({
-  isActive,
   children,
   onVisibilityChange,
   item,
 }: {
-  isActive: boolean;
   children: ReactNode;
   onVisibilityChange?: VoidVisibilityChangeCallback<Data>;
   item: Data;
@@ -22,18 +20,6 @@ export const ItemShowCase = <Data,>({
   const [isVisible, setIsVisible] = useState(false);
   const [observerRef, subscribe] = useVisibleSubscription();
   const itemRef = useRef<HTMLLIElement>(null);
-
-  useEffect(() => {
-    const element = itemRef.current;
-    if (!element) return;
-    if (!isActive) return;
-
-    const raf = requestAnimationFrame(() => {
-      element.scrollIntoView();
-    });
-
-    return () => cancelAnimationFrame(raf);
-  }, [isActive, observerRef]);
 
   useEffect(() => {
     const disconnect = subscribe((visible) => {

@@ -1,4 +1,4 @@
-import { ReactElement, useCallback, useId, useRef, useState } from "react";
+import { type ReactElement, useCallback, useId, useRef, useState } from "react";
 
 import { VisuallyHidden } from "@/components/VisuallyHidden/";
 
@@ -21,6 +21,18 @@ const calcVisibleBounds = <T extends Record<"id", unknown>>(
   return [firstVisibleIndex, lastVisibleIndex];
 };
 
+const scrollListChildIntoView = (
+  listElement: HTMLUListElement,
+  target: number
+) => {
+  const children = listElement.children;
+  const child = children.item(target);
+
+  if (!child) return;
+
+  child.scrollIntoView();
+};
+
 export const Showcase = <Data extends Record<"id", string>>({
   Component,
   items,
@@ -28,7 +40,6 @@ export const Showcase = <Data extends Record<"id", string>>({
   Component: RenderElement<Data>;
   items: Data[];
 }) => {
-  const [activeItem, setActiveItem] = useState<Data | null>(null);
   const [visibleItems, setVisibleItems] = useState<WithVisibility<Data>[]>([]);
 
   const listId = useId();
@@ -53,22 +64,24 @@ export const Showcase = <Data extends Record<"id", string>>({
 
   const [firstVisibleIndex, lastVisibleIndex] = calcVisibleBounds(visibleItems);
 
-  const disableMoveBack = activeItem === items[0] || firstVisibleIndex === 0;
+  const disableMoveBack = firstVisibleIndex === 0;
 
-  const disableMoveForward =
-    activeItem === items[items.length - 1] ||
-    lastVisibleIndex === items.length - 1;
+  const disableMoveForward = lastVisibleIndex === items.length - 1;
 
   const moveBack = () => {
     if (disableMoveBack) return;
 
-    setActiveItem(items[firstVisibleIndex - 1]);
+    const element = listRef.current;
+    if (!element) return;
+    scrollListChildIntoView(element, firstVisibleIndex - 1);
   };
 
   const moveForward = () => {
     if (disableMoveForward) return;
 
-    setActiveItem(items[lastVisibleIndex + 1]);
+    const element = listRef.current;
+    if (!element) return;
+    scrollListChildIntoView(element, lastVisibleIndex + 1);
   };
 
   return (
@@ -82,7 +95,6 @@ export const Showcase = <Data extends Record<"id", string>>({
         {items.map((item) => (
           <ItemShowCase
             key={item.id}
-            isActive={activeItem === item}
             item={item}
             onVisibilityChange={handleVisibilityChange}
           >
@@ -102,9 +114,11 @@ export const Showcase = <Data extends Record<"id", string>>({
               <a
                 className={style.spotlightControlItem}
                 onClick={() => {
-                  setActiveItem(item);
+                  const element = listRef.current;
+                  if (!element) return;
+                  scrollListChildIntoView(element, index);
                 }}
-                aria-current={activeItem === item ? "true" : "false"}
+                aria-current={visibleItems[index]?.isVisible ? "true" : "false"}
               >
                 <VisuallyHidden>Move to {index + 1}</VisuallyHidden>
               </a>
@@ -114,22 +128,24 @@ export const Showcase = <Data extends Record<"id", string>>({
       </nav>
 
       <div
-        className={style.movingButtons}
+        className={style.sliderControl}
         role="navigation"
         aria-controls={listId}
         aria-label="Move through vehicle list"
       >
         <button
-          disabled={disableMoveBack}
+          className={style.controlButton}
           onClick={moveBack}
           aria-label="previous"
+          aria-disabled={disableMoveBack ? "true" : "false"}
         >
           Back
         </button>
         <button
-          disabled={disableMoveForward}
+          className={style.controlButton}
           onClick={moveForward}
           aria-label="next"
+          aria-disabled={disableMoveForward ? "true" : "false"}
         >
           Fwd
         </button>

@@ -1,7 +1,9 @@
 .cardHeader,
-.cardContent,
-.cardFooter {
+.cardContent {
   padding-bottom: 1rem;
+}
+.cardFooter {
+  padding-bottom: 0.5rem;
 }
 
 .cardFooter {

@@ -19,24 +19,10 @@ import { selectCarById } from "@/lib/cars";
 import { readDB } from "@/lib/db";
 import { RightArrow } from "@/icons/RightArrow";
 
+import spacer from "@/styles/spacer.module.css";
+
 const SOLD_OUT = "sold-out";
 
-/**
- * learn and shop, given the problem setup,
- * share the same GSSP, but in practice, these
- * are likely to grow apart, because learn needs
- * to give us also a description, and perhaps
- * similar vehicles.
- *
- * Meanwhile, shop, would need to get the latest
- * prices, financing options, etc.
- *
- * Sharing code at this level, this early, is not
- * the best of ideas. To introduce some kind of difference
- * I have a "useless" constant, SOLD_OUT,
- * which is passed as `status` to the Page.
- *
- */
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   const id = ctx.params?.id;
 
@@ -59,37 +45,44 @@ const VehicleShop = ({
   carData,
   status,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
-  const { modelName, modelType, bodyType, imageUrl } = carData;
+  const { id, modelName, modelType, bodyType, imageUrl } = carData;
 
   const headingId = useId();
   return (
-    <Container>
-      <section aria-labelledby={headingId}>
-        <Text id={headingId} renderAs="h1" size="xl">
-          Purchase
+    <Container renderAs="section" aria-labelledby={headingId}>
+      <Text id={headingId} renderAs="h1" size="xl">
+        Purchase
+      </Text>
+
+      <VehicleHeader>
+        <VehicleTitle modelName={modelName} modelType={modelType} />
+
+        <Text renderAs="span" variation="secondary">
+          {bodyType.toUpperCase()}
         </Text>
+      </VehicleHeader>
 
-        <VehicleHeader>
-          <VehicleTitle modelName={modelName} modelType={modelType} />
+      {status === SOLD_OUT && <SoldOut />}
 
-          <Text renderAs="span" variation="secondary">
-            {bodyType.toUpperCase()}
-          </Text>
-        </VehicleHeader>
+      <VehicleCTALink href={`/learn/${id}`}>
+        <Text renderAs="span">Learn</Text>
+        <span aria-hidden="true">
+          <RightArrow />
+        </span>
+      </VehicleCTALink>
 
-        <VehicleImage src={imageUrl} alt={modelName} />
+      <VehicleImage src={imageUrl} alt={modelName} />
 
-        {status === SOLD_OUT && <SoldOut />}
+      <Paragraph>This vehicle is not available for purchase.</Paragraph>
 
-        <Paragraph>This vehicle is not available for purchase.</Paragraph>
+      <VehicleCTALink href="/">
+        <Text renderAs="span">back to main page</Text>
+        <span aria-hidden="true">
+          <RightArrow />
+        </span>
+      </VehicleCTALink>
 
-        <VehicleCTALink href="/">
-          <Text renderAs="span">Explore more vehicles</Text>
-          <span aria-hidden="true">
-            <RightArrow />
-          </span>
-        </VehicleCTALink>
-      </section>
+      <div className={spacer.vertical} />
     </Container>
   );
 };

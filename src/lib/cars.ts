@@ -79,3 +79,18 @@ export const selectCarById = (data: unknown, id: string) => {
 
   return carData;
 };
+
+export const selectCarsByBodyType = (
+  data: unknown,
+  bodyType: Car["bodyType"]
+) => {
+  if (!Array.isArray(data)) {
+    throw new Error("Malformed input data");
+  }
+
+  const byBodyType = data
+    .filter(isValidCar)
+    .filter((item) => item.bodyType === bodyType);
+
+  return byBodyType;
+};

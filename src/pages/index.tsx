@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import type { InferGetStaticPropsType } from "next";
 
+import { Container } from "@/components/Container";
 import { Select } from "@/components/Select";
 import { Showcase } from "@/components/Showcase";
 import { Text } from "@/components/Text";
@@ -11,7 +12,8 @@ import { bodyTypes, isBodyType, isValidCar } from "@/lib/cars";
 import { readDB } from "@/lib/db";
 import type { Car } from "@/lib/types";
 
-import style from "@/styles/index.module.css";
+import alertBox from "@/styles/alertbox.module.css";
+import plainButton from "@/styles/plain-button.module.css";
 
 export const getStaticProps = async () => {
   const data = await readDB();
@@ -94,9 +96,9 @@ export default function Home({
   }, []);
 
   return (
-    <main className={style.layout}>
-      <section aria-label={"Recharge Cars"}>
-        <Text renderAs="h1" size="xl" className={style.mainHeading}>
+    <>
+      <Container renderAs="section" aria-label={"Recharge Cars"}>
+        <Text renderAs="h1" size="xl">
           Recharge cars
         </Text>
 
@@ -118,7 +120,7 @@ export default function Home({
             </option>
           ))}
         </Select>
-      </section>
+      </Container>
 
       <Showcase
         Component={VehicleCard}
@@ -128,15 +130,15 @@ export default function Home({
       />
 
       {showAlert && (
-        <div className={style.alertBox}>
+        <div className={alertBox.padded}>
           <Text role="alert" renderAs="span" variation="secondary">
             We had a problem, this list might be outdated.
           </Text>
-          <button className={style.retryButton} onClick={() => fetchCars()}>
+          <button className={plainButton.plain} onClick={() => fetchCars()}>
             <Text renderAs="span">Retry.</Text>
           </button>
         </div>
       )}
-    </main>
+    </>
   );
 }

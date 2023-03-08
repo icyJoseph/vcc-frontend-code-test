@@ -42,9 +42,10 @@
 }
 
 .spotlightNav {
-  padding-top: 1rem;
+  padding-top: 0.5rem;
   display: block;
-  height: 3rem;
+  height: 2rem;
+  padding-bottom: 3rem;
 }
 
 .spotlightControls {

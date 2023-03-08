@@ -1,0 +1,9 @@
+.plain {
+  display: inline-block;
+  background: transparent;
+  text-decoration: underline;
+  border: 0;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+}

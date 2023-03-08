@@ -11,11 +11,11 @@ type ContainerProps<T extends ContainerElements | ElementType> = {
   renderAs?: T;
 } & ComponentPropsWithoutRef<T>;
 
-export const Container = <T extends ElementType = "main">({
+export const Container = <T extends ElementType = "div">({
   renderAs,
   children,
 }: ContainerProps<T>) => {
-  const Tag = renderAs || "main";
+  const Tag = renderAs || "div";
 
   return <Tag className={style.container}>{children}</Tag>;
 };

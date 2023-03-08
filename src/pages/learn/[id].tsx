@@ -6,6 +6,7 @@ import type {
 
 import { Container } from "@/components/Container";
 import { Paragraph } from "@/components/Paragraph";
+import { Showcase } from "@/components/Showcase";
 import { Text } from "@/components/Text";
 import {
   VehicleTitle,
@@ -13,10 +14,14 @@ import {
   VehicleCTALink,
   VehicleHeader,
 } from "@/components/Vehicle";
+import { VehicleCard } from "@/components/VehicleCard";
 import { parseJSON } from "@/helpers";
+import { CircledLeftArrow, CircledRightArrow } from "@/icons/Circled";
 import { RightArrow } from "@/icons/RightArrow";
-import { selectCarById } from "@/lib/cars";
+import { selectCarById, selectCarsByBodyType } from "@/lib/cars";
 import { readDB } from "@/lib/db";
+
+import spacer from "@/styles/spacer.module.css";
 
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   const id = ctx.params?.id;
@@ -29,7 +34,11 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
 
     const carData = selectCarById(cars, id);
 
-    return { props: { carData } };
+    const similar = selectCarsByBodyType(cars, carData.bodyType).filter(
+      (item) => item.id !== carData.id
+    );
+
+    return { props: { carData, similar } };
   } catch (reason) {
     // report to a logging system
     return { notFound: true };
@@ -38,13 +47,16 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
 
 const ReadMoreAboutVehicle = ({
   carData,
+  similar,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const { id, modelName, modelType, bodyType, imageUrl } = carData;
+  const hasSimilar = similar.length > 0;
+
   const headingId = useId();
 
   return (
-    <Container>
-      <section aria-labelledby={headingId}>
+    <>
+      <Container renderAs="section" aria-labelledby={headingId}>
         <Text id={headingId} renderAs="h1" size="xl">
           Learn more
         </Text>
@@ -78,15 +90,36 @@ const ReadMoreAboutVehicle = ({
           laudantium voluptas. Dignissimos ipsum maxime quidem error nobis!
           Sapiente consequatur incidunt sequi.
         </Paragraph>
+      </Container>
 
+      {hasSimilar && (
+        <>
+          <Container renderAs="div">
+            <Text renderAs="h2" size="lg">
+              Similar vehicles
+            </Text>
+          </Container>
+
+          <Showcase
+            items={similar}
+            Component={VehicleCard}
+            backIcon={<CircledLeftArrow />}
+            forwardIcon={<CircledRightArrow />}
+          />
+        </>
+      )}
+
+      <Container>
         <VehicleCTALink href="/">
-          <Text renderAs="span">Explore more vehicles</Text>
+          <Text renderAs="span">Back to main page</Text>
           <span aria-hidden="true">
             <RightArrow />
           </span>
         </VehicleCTALink>
-      </section>
-    </Container>
+      </Container>
+
+      <div className={spacer.vertical} />
+    </>
   );
 };
 

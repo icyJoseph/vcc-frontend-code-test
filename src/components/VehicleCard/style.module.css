@@ -22,6 +22,25 @@
   gap: 2rem;
 }
 
+.cardCallToAction {
+  color: #1c6bba;
+  text-transform: uppercase;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.cardCallToAction > span {
+  vertical-align: middle;
+}
+
+.rightArrow {
+  width: 1rem;
+  margin-top: -4px;
+  margin-left: 4px;
+  vertical-align: middle;
+  display: inline-block;
+}
+
 @media (min-width: 1024px) {
   .cardTitle {
     display: inline;

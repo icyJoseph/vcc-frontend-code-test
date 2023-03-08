@@ -36,9 +36,13 @@ const scrollListChildIntoView = (
 export const Showcase = <Data extends Record<"id", string>>({
   Component,
   items,
+  backIcon,
+  forwardIcon,
 }: {
   Component: RenderElement<Data>;
   items: Data[];
+  backIcon: ReactElement;
+  forwardIcon: ReactElement;
 }) => {
   const [visibleItems, setVisibleItems] = useState<WithVisibility<Data>[]>([]);
 
@@ -139,7 +143,8 @@ export const Showcase = <Data extends Record<"id", string>>({
           aria-label="previous"
           aria-disabled={disableMoveBack ? "true" : "false"}
         >
-          Back
+          <VisuallyHidden>Back</VisuallyHidden>
+          {backIcon}
         </button>
         <button
           className={style.controlButton}
@@ -147,7 +152,8 @@ export const Showcase = <Data extends Record<"id", string>>({
           aria-label="next"
           aria-disabled={disableMoveForward ? "true" : "false"}
         >
-          Fwd
+          <VisuallyHidden>Forward</VisuallyHidden>
+          {forwardIcon}
         </button>
       </div>
     </div>

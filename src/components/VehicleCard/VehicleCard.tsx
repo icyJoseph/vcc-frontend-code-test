@@ -4,7 +4,7 @@ import Link from "next/link";
 import { VisuallyHidden } from "@/components/VisuallyHidden";
 import type { Car } from "@/lib/types";
 
-// import ChevronSmall from "@/icons/chevron-small.svg";
+import ChevronSmall from "@/icons/chevron-small.svg";
 
 import style from "./style.module.css";
 
@@ -49,14 +49,18 @@ export const VehicleCard = ({
         <VisuallyHidden>
           Read more about {modelName}, {modelType}
         </VisuallyHidden>
-        <span aria-hidden="true">Learn</span>
+        <span aria-hidden="true">
+          Learn <ChevronSmall className={style.rightArrow} />
+        </span>
       </Link>
 
       <Link href={`/shop/${id}`} className={style.cardCallToAction}>
         <VisuallyHidden>
           Purchase {modelName}, {modelType}
         </VisuallyHidden>
-        <span aria-hidden="true">Shop</span>
+        <span aria-hidden="true">
+          Shop <ChevronSmall className={style.rightArrow} />
+        </span>
       </Link>
     </footer>
   </article>

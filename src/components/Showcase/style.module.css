@@ -118,7 +118,7 @@
 }
 
 .controlButton[aria-disabled="true"] {
-  opacity: 0.7;
+  opacity: 0.5;
   cursor: not-allowed;
 }
 
@@ -139,7 +139,7 @@
   .sliderControl {
     display: flex;
     justify-content: flex-end;
-    gap: 2rem;
+    gap: 1rem;
     padding: 2rem;
   }
 }

@@ -1,0 +1,13 @@
+.circledLeftArrow,
+.circledRightArrow {
+  display: block;
+  width: 2.5rem;
+}
+
+.circledRightArrow {
+  transform: rotate(0deg);
+}
+
+.circledLeftArrow {
+  transform: rotate(-180deg);
+}

@@ -111,7 +111,7 @@ export const Showcase = <Data extends Record<"id", string>>({
         <ul className={style.spotlightControls}>
           {items.map((item, index) => (
             <li key={item.id} aria-label={`Navigate to ${index + 1}`}>
-              <a
+              <button
                 className={style.spotlightControlItem}
                 onClick={() => {
                   const element = listRef.current;
@@ -121,7 +121,7 @@ export const Showcase = <Data extends Record<"id", string>>({
                 aria-current={visibleItems[index]?.isVisible ? "true" : "false"}
               >
                 <VisuallyHidden>Move to {index + 1}</VisuallyHidden>
-              </a>
+              </button>
             </li>
           ))}
         </ul>

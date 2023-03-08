@@ -1,7 +1,8 @@
 .typography {
   /* a few design tokens */
   --text-sm: 0.9rem;
-  --text-normal: 1rem;
+  --text-base: 1rem;
+  --text-md: 1.2rem;
   --text-lg: 1.5rem;
   --text-xl: 2rem;
 
@@ -13,10 +14,14 @@
   font-size: var(--text-sm, 0.9rem);
 }
 
-.textMd {
+.textBase {
   font-size: 1rem; /* IE fallback */
+  font-size: var(--text-base, 1rem);
+}
 
-  font-size: var(--text-normal, 1rem);
+.textMd {
+  font-size: 1.2rem;
+  font-size: var(--text-md);
 }
 
 .textLg {

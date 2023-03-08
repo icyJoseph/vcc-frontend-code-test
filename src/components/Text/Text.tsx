@@ -2,7 +2,7 @@ import type { ComponentPropsWithoutRef, ElementType } from "react";
 
 import style from "./text.module.css";
 
-type TextSize = "sm" | "md" | "lg" | "xl";
+type TextSize = "sm" | "base" | "md" | "lg" | "xl";
 type TextWeight = "normal" | "light" | "bold" | "highlight";
 type Variation = "primary" | "secondary" | "none";
 
@@ -20,6 +20,7 @@ type TextProps<T extends TextElements | ElementType> = {
 
 const sizes: Record<TextSize, string> = {
   sm: style.textSm,
+  base: style.textBase,
   md: style.textMd,
   lg: style.textLg,
   xl: style.textXl,
@@ -46,7 +47,7 @@ export const Text = <T extends ElementType = "p">({
   ...rest
 }: TextProps<T>) => {
   const Tag = renderAs || "p";
-  const size = sizes[textSize || "md"];
+  const size = sizes[textSize || "base"];
   const textVariation = variations[variation || "none"];
   const weight = weights[textWeight || "normal"];
 

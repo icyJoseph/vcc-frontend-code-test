@@ -1,0 +1,32 @@
+.title {
+  display: block;
+}
+
+.subTitle {
+  text-transform: uppercase;
+}
+
+.image {
+  display: block;
+  object-fit: contain;
+  width: 100%;
+  height: auto;
+}
+
+.callToAction {
+  color: #1c6bba;
+  color: var(--brand-color, #1c6bba);
+  text-transform: uppercase;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.callToAction > span {
+  vertical-align: middle;
+}
+
+@media (min-width: 1024px) {
+  .title {
+    display: inline;
+  }
+}

@@ -1,0 +1,11 @@
+.cardHeader,
+.cardContent,
+.cardFooter {
+  padding-bottom: 1rem;
+}
+
+.cardFooter {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+}

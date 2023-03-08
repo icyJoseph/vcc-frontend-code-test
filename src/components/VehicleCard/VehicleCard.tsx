@@ -1,13 +1,66 @@
-import Image from "next/image";
-import Link from "next/link";
+import type { ReactNode } from "react";
 
+import { Card } from "@/components/Card";
+import { Text } from "@/components/Text";
+import {
+  VehicleCTALink,
+  VehicleImage,
+  VehicleSubTitle,
+  VehicleTitle,
+} from "@/components/Vehicle/Vehicle";
 import { VisuallyHidden } from "@/components/VisuallyHidden";
 import type { Car } from "@/lib/types";
-
 import ChevronSmall from "@/icons/chevron-small.svg";
 
 import style from "./vehicle-card.module.css";
-import { Text } from "../Text";
+
+const VehicleCardHeader = ({
+  bodyType,
+  modelName,
+  modelType,
+}: Pick<Car, "bodyType" | "modelName" | "modelType">) => (
+  <Card.Header>
+    <VehicleSubTitle bodyType={bodyType} />
+
+    <VehicleTitle modelName={modelName} modelType={modelType} />
+  </Card.Header>
+);
+
+const VehicleCardFooter = ({
+  id,
+  modelName,
+  modelType,
+}: Pick<Car, "id" | "modelName" | "modelType">) => (
+  <Card.Footer>
+    <VehicleCTALink href={`/learn/${id}`}>
+      <VisuallyHidden>
+        Read more about {modelName}, {modelType}
+      </VisuallyHidden>
+
+      <Text renderAs="span" weight="highlight" size="sm" aria-hidden="true">
+        Learn <ChevronSmall className={style.rightArrow} />
+      </Text>
+    </VehicleCTALink>
+
+    <VehicleCTALink href={`/shop/${id}`}>
+      <VisuallyHidden>
+        Purchase {modelName}, {modelType}
+      </VisuallyHidden>
+
+      <Text renderAs="span" weight="highlight" size="sm" aria-hidden="true">
+        Shop <ChevronSmall className={style.rightArrow} />
+      </Text>
+    </VehicleCTALink>
+  </Card.Footer>
+);
+
+const VehicleCardContent = ({
+  children,
+  modelName,
+}: {
+  children: ReactNode;
+  modelName: string;
+}) => <Card.Content ariaLabel={modelName}>{children}</Card.Content>;
 
 export const VehicleCard = ({
   id,
@@ -16,71 +69,17 @@ export const VehicleCard = ({
   modelType,
   imageUrl,
 }: Car) => (
-  <article
-    aria-label={`${modelName}`}
-    role="contentinfo"
-    className={style.cardWrapper}
-  >
-    <header className={style.cardHeader}>
-      <Text
-        renderAs="span"
-        variation="secondary"
-        weight="bold"
-        className={style.cardSubTitle}
-      >
-        {bodyType}
-      </Text>
+  <Card ariaLabel={`${modelName}`}>
+    <VehicleCardHeader
+      bodyType={bodyType}
+      modelType={modelType}
+      modelName={modelName}
+    />
 
-      <div>
-        <Text renderAs="h2" size="lg" className={style.cardTitle}>
-          {modelName}
-        </Text>{" "}
-        <Text
-          renderAs="span"
-          size="md"
-          weight="highlight"
-          variation="secondary"
-        >
-          {modelType}
-        </Text>
-      </div>
-    </header>
+    <VehicleCardContent modelName={modelName}>
+      <VehicleImage src={imageUrl} alt={`An image of ${modelName} car model`} />
+    </VehicleCardContent>
 
-    <section aria-label={modelName} className={style.cardContent}>
-      <Image
-        className={style.cardImage}
-        src={imageUrl}
-        alt={`An image of ${modelName} car model`}
-        width={800}
-        height={600}
-        style={{ objectFit: "contain", width: "100%", height: "auto" }}
-      />
-    </section>
-
-    <footer role="contentinfo" className={style.cardFooter}>
-      <VisuallyHidden>
-        More about {modelName}, {modelType}
-      </VisuallyHidden>
-
-      <Link href={`/learn/${id}`} className={style.cardCallToAction}>
-        <VisuallyHidden>
-          Read more about {modelName}, {modelType}
-        </VisuallyHidden>
-
-        <Text renderAs="span" weight="highlight" size="sm" aria-hidden="true">
-          Learn <ChevronSmall className={style.rightArrow} />
-        </Text>
-      </Link>
-
-      <Link href={`/shop/${id}`} className={style.cardCallToAction}>
-        <VisuallyHidden>
-          Purchase {modelName}, {modelType}
-        </VisuallyHidden>
-
-        <Text renderAs="span" weight="highlight" size="sm" aria-hidden="true">
-          Shop <ChevronSmall className={style.rightArrow} />
-        </Text>
-      </Link>
-    </footer>
-  </article>
+    <VehicleCardFooter id={id} modelName={modelName} modelType={modelType} />
+  </Card>
 );

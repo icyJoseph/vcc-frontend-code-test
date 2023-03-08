@@ -1,49 +1,7 @@
-.cardTitle {
-  display: block;
-}
-
-.cardHeader,
-.cardContent,
-.cardFooter {
-  padding-bottom: 1rem;
-}
-
-.cardSubTitle {
-  text-transform: uppercase;
-}
-
-.cardImage {
-  display: block;
-}
-
-.cardFooter {
-  display: flex;
-  justify-content: center;
-  gap: 2rem;
-}
-
-.cardCallToAction {
-  color: #1c6bba;
-  color: var(--brand-color, #1c6bba);
-  text-transform: uppercase;
-  text-decoration: none;
-  font-weight: bold;
-}
-
-.cardCallToAction > span {
-  vertical-align: middle;
-}
-
 .rightArrow {
   width: var(--text-sm, 1rem);
   margin-top: 2px;
   margin-left: 4px;
   vertical-align: text-top;
   display: inline-block;
-}
-
-@media (min-width: 1024px) {
-  .cardTitle {
-    display: inline;
-  }
 }

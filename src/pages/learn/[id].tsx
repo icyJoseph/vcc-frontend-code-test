@@ -15,7 +15,7 @@ import {
 } from "@/components/Vehicle";
 import { parseJSON } from "@/helpers";
 import { RightArrow } from "@/icons/RightArrow";
-import { isValidCar } from "@/lib/cars";
+import { selectCarById } from "@/lib/cars";
 import { readDB } from "@/lib/db";
 
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
@@ -23,17 +23,17 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
 
   if (typeof id !== "string") return { notFound: true };
 
-  const data = await readDB();
-  const cars = parseJSON(data);
+  try {
+    const data = await readDB();
+    const cars = parseJSON(data);
 
-  // good enough fallback
-  if (!Array.isArray(cars)) return { notFound: true };
+    const carData = selectCarById(cars, id);
 
-  const carData = cars.filter(isValidCar).find((item) => item.id === id);
-
-  if (!carData) return { notFound: true };
-
-  return { props: { carData } };
+    return { props: { carData } };
+  } catch (reason) {
+    // report to a logging system
+    return { notFound: true };
+  }
 };
 
 const ReadMoreAboutVehicle = ({

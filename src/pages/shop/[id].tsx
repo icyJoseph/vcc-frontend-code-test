@@ -15,31 +15,49 @@ import {
   VehicleHeader,
 } from "@/components/Vehicle";
 import { parseJSON } from "@/helpers";
-import { isValidCar } from "@/lib/cars";
+import { selectCarById } from "@/lib/cars";
 import { readDB } from "@/lib/db";
 import { RightArrow } from "@/icons/RightArrow";
 
+const SOLD_OUT = "sold-out";
+
+/**
+ * learn and shop, given the problem setup,
+ * share the same GSSP, but in practice, these
+ * are likely to grow apart, because learn needs
+ * to give us also a description, and perhaps
+ * similar vehicles.
+ *
+ * Meanwhile, shop, would need to get the latest
+ * prices, financing options, etc.
+ *
+ * Sharing code at this level, this early, is not
+ * the best of ideas. To introduce some kind of difference
+ * I have a "useless" constant, SOLD_OUT,
+ * which is passed as `status` to the Page.
+ *
+ */
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   const id = ctx.params?.id;
 
   if (typeof id !== "string") return { notFound: true };
 
-  const data = await readDB();
-  const cars = parseJSON(data);
+  try {
+    const data = await readDB();
+    const cars = parseJSON(data);
 
-  // good enough fallback
-  if (!Array.isArray(cars)) return { notFound: true };
+    const carData = selectCarById(cars, id);
 
-  const carData = cars.filter(isValidCar).find((item) => item.id === id);
-
-  // alternatively redirect back to `/`
-  if (!carData) return { notFound: true };
-
-  return { props: { carData } };
+    return { props: { carData, status: SOLD_OUT } };
+  } catch (reason) {
+    // report to a logging system
+    return { notFound: true };
+  }
 };
 
 const VehicleShop = ({
   carData,
+  status,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const { modelName, modelType, bodyType, imageUrl } = carData;
 
@@ -61,7 +79,7 @@ const VehicleShop = ({
 
         <VehicleImage src={imageUrl} alt={modelName} />
 
-        <SoldOut />
+        {status === SOLD_OUT && <SoldOut />}
 
         <Paragraph>This vehicle is not available for purchase.</Paragraph>
 

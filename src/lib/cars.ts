@@ -65,3 +65,17 @@ export function isValidCar(data: unknown): data is Car {
 
   return true;
 }
+
+export const selectCarById = (data: unknown, id: string) => {
+  if (!Array.isArray(data)) {
+    throw new Error("Malformed input data");
+  }
+
+  const carData = data.filter(isValidCar).find((item) => item.id === id);
+
+  if (!carData) {
+    throw new Error(`Car with id: ${id}, not found`);
+  }
+
+  return carData;
+};

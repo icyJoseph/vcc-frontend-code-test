@@ -4,17 +4,19 @@ import type {
   InferGetServerSidePropsType,
 } from "next";
 
+import { Container } from "@/components/Container";
+import { Paragraph } from "@/components/Paragraph";
+import { SoldOut } from "@/components/SoldOut";
 import { Text } from "@/components/Text";
 import {
   VehicleTitle,
   VehicleImage,
   VehicleCTALink,
+  VehicleHeader,
 } from "@/components/Vehicle";
 import { parseJSON } from "@/helpers";
 import { isValidCar } from "@/lib/cars";
 import { readDB } from "@/lib/db";
-
-import style from "@/styles/layout.module.css";
 import { RightArrow } from "@/icons/RightArrow";
 
 export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
@@ -30,6 +32,7 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
 
   const carData = cars.filter(isValidCar).find((item) => item.id === id);
 
+  // alternatively redirect back to `/`
   if (!carData) return { notFound: true };
 
   return { props: { carData } };
@@ -42,34 +45,25 @@ const VehicleShop = ({
 
   const headingId = useId();
   return (
-    <main className={style.container}>
+    <Container>
       <section aria-labelledby={headingId}>
-        <Text
-          id={headingId}
-          renderAs="h1"
-          size="xl"
-          className={style.mainHeading}
-        >
+        <Text id={headingId} renderAs="h1" size="xl">
           Purchase
         </Text>
 
-        <header className={style.header}>
+        <VehicleHeader>
           <VehicleTitle modelName={modelName} modelType={modelType} />
 
           <Text renderAs="span" variation="secondary">
             {bodyType.toUpperCase()}
           </Text>
-        </header>
+        </VehicleHeader>
 
         <VehicleImage src={imageUrl} alt={modelName} />
 
-        <Text role="alert" className={style.soldOut}>
-          sold out
-        </Text>
+        <SoldOut />
 
-        <Text className={style.paragraph}>
-          This vehicle is not available for purchase.
-        </Text>
+        <Paragraph>This vehicle is not available for purchase.</Paragraph>
 
         <VehicleCTALink href="/">
           <Text renderAs="span">Explore more vehicles</Text>
@@ -78,7 +72,7 @@ const VehicleShop = ({
           </span>
         </VehicleCTALink>
       </section>
-    </main>
+    </Container>
   );
 };
 

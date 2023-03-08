@@ -6,6 +6,10 @@ import { Text } from "@/components/Text";
 
 import vehicle from "./vehicle.module.css";
 
+export const VehicleHeader = ({ children }: { children: ReactNode }) => (
+  <header className={vehicle.header}>{children}</header>
+);
+
 export const VehicleTitle = ({
   modelName,
   modelType,

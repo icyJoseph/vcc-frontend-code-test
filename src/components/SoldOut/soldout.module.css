@@ -1,0 +1,5 @@
+.soldOut {
+  margin: 2rem 0;
+  text-transform: uppercase;
+  color: var(--warning);
+}

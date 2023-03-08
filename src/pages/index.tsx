@@ -1,17 +1,17 @@
 import { useEffect, useState } from "react";
 import type { InferGetStaticPropsType } from "next";
 
+import { Select } from "@/components/Select";
 import { Showcase } from "@/components/Showcase";
+import { Text } from "@/components/Text";
 import { VehicleCard } from "@/components/VehicleCard";
-import { parseJSON } from "@/helpers";
 import { CircledLeftArrow, CircledRightArrow } from "@/icons/Circled";
+import { parseJSON } from "@/helpers";
 import { bodyTypes, isBodyType, isValidCar } from "@/lib/cars";
 import { readDB } from "@/lib/db";
 import type { Car } from "@/lib/types";
 
 import style from "@/styles/index.module.css";
-import { Select } from "@/components/Select";
-import { Text } from "@/components/Text";
 
 export const getStaticProps = async () => {
   const data = await readDB();

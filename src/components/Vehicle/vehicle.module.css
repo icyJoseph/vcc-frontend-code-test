@@ -6,6 +6,10 @@
   text-transform: uppercase;
 }
 
+.header {
+  padding: 2rem 0;
+}
+
 .image {
   display: block;
   object-fit: contain;

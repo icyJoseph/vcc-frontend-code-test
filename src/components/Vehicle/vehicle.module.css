@@ -19,6 +19,12 @@
   text-transform: uppercase;
   text-decoration: none;
   font-weight: bold;
+  transition: all 0.2s ease;
+}
+
+.callToAction:hover {
+  color: #141414;
+  color: var(--text-color, #141414);
 }
 
 .callToAction > span {

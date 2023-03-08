@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import Link from "next/link";
 
 import { Card } from "@/components/Card";
 import { Text } from "@/components/Text";
@@ -10,9 +11,7 @@ import {
 } from "@/components/Vehicle/Vehicle";
 import { VisuallyHidden } from "@/components/VisuallyHidden";
 import type { Car } from "@/lib/types";
-import ChevronSmall from "@/icons/chevron-small.svg";
-
-import style from "./vehicle-card.module.css";
+import { RightArrow } from "@/icons/RightArrow";
 
 const VehicleCardHeader = ({
   bodyType,
@@ -38,7 +37,7 @@ const VehicleCardFooter = ({
       </VisuallyHidden>
 
       <Text renderAs="span" weight="highlight" size="sm" aria-hidden="true">
-        Learn <ChevronSmall className={style.rightArrow} />
+        Learn <RightArrow />
       </Text>
     </VehicleCTALink>
 
@@ -48,7 +47,7 @@ const VehicleCardFooter = ({
       </VisuallyHidden>
 
       <Text renderAs="span" weight="highlight" size="sm" aria-hidden="true">
-        Shop <ChevronSmall className={style.rightArrow} />
+        Shop <RightArrow />
       </Text>
     </VehicleCTALink>
   </Card.Footer>
@@ -77,7 +76,12 @@ export const VehicleCard = ({
     />
 
     <VehicleCardContent modelName={modelName}>
-      <VehicleImage src={imageUrl} alt={`An image of ${modelName} car model`} />
+      <Link href={`/shop/${id}`}>
+        <VehicleImage
+          src={imageUrl}
+          alt={`An image of ${modelName} car model`}
+        />
+      </Link>
     </VehicleCardContent>
 
     <VehicleCardFooter id={id} modelName={modelName} modelType={modelType} />

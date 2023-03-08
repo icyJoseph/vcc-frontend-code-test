@@ -11,3 +11,11 @@
 .circledLeftArrow {
   transform: rotate(-180deg);
 }
+
+.rightArrow {
+  width: var(--text-sm, 1rem);
+  margin-top: 2px;
+  margin-left: 4px;
+  vertical-align: text-top;
+  display: inline-block;
+}

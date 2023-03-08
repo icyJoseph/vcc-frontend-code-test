@@ -3,7 +3,7 @@ import { type ReactElement, useCallback, useId, useRef, useState } from "react";
 import { VisuallyHidden } from "@/components/VisuallyHidden/";
 
 import { ItemShowCase } from "./ItemShowcase";
-import style from "./style.module.css";
+import style from "./showcase.module.css";
 
 type VisibilityChange<T> = (updated: T, isVisible: boolean) => void;
 type WithVisibility<T extends Record<"id", unknown>> = T & {

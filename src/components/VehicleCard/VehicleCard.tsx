@@ -6,7 +6,7 @@ import type { Car } from "@/lib/types";
 
 import ChevronSmall from "@/icons/chevron-small.svg";
 
-import style from "./style.module.css";
+import style from "./vehicle-card.module.css";
 
 export const VehicleCard = ({
   id,

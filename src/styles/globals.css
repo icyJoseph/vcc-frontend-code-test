@@ -42,3 +42,9 @@ h6 {
 #__next {
   isolation: isolate;
 }
+
+:root {
+  --brand-color: #1c6bba;
+  --text-color: #141414;
+  --gray-color: #707070;
+}

@@ -52,8 +52,10 @@
 
 .textPrimary {
   color: #141414;
+  color: var(--text-color, #141414);
 }
 
 .textSecondary {
   color: #707070;
+  color: var(--gray-color, #707070);
 }

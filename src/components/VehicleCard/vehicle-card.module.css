@@ -24,6 +24,7 @@
 
 .cardCallToAction {
   color: #1c6bba;
+  color: var(--brand-color, #1c6bba);
   text-transform: uppercase;
   text-decoration: none;
   font-weight: bold;

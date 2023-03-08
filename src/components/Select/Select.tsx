@@ -13,7 +13,14 @@ export const Select = ({
       <label htmlFor={selectId} className={style.selectLabel}>
         {label}
       </label>
-      <select {...rest} className={className} id={selectId} />
+      <div className={style.selectWrapper}>
+        <select
+          {...rest}
+          className={`${style.select} ${className}`.trim()}
+          id={selectId}
+        />
+        <span className={style.focus} />
+      </div>
     </fieldset>
   );
 };

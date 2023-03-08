@@ -1,3 +1,4 @@
 export const ReactComponent = "div";
 // eslint-disable-next-line import/no-anonymous-default-export
-export default "SvgrURL";
+const SvgUrl = () => "svgrurl";
+export default SvgUrl;

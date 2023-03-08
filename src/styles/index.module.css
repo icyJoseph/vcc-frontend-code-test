@@ -10,3 +10,17 @@
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
 }
+
+.alertBox {
+  padding: 2rem;
+}
+
+.retryButton {
+  display: inline-block;
+  background: transparent;
+  text-decoration: underline;
+  border: 0;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+}

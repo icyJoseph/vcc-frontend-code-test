@@ -112,13 +112,11 @@ export default function Home({
         >
           <option value="">Show all</option>
 
-          <optgroup label="Body type">
-            {bodyTypes.map((type) => (
-              <option key={type} value={type}>
-                {type.toUpperCase()}
-              </option>
-            ))}
-          </optgroup>
+          {bodyTypes.map((type) => (
+            <option key={type} value={type}>
+              {type.toUpperCase()}
+            </option>
+          ))}
         </Select>
       </section>
 

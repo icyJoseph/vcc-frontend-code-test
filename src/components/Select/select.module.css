@@ -30,9 +30,9 @@
   margin: 0;
   width: 100%;
   font-size: inherit;
-  cursor: inherit;
   line-height: inherit;
   outline: none;
+  color: inherit;
 
   /* actual styling */
   font-family: "Volvo Novum", Arial, Helvetica, sans-serif;
@@ -47,7 +47,7 @@
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='9' viewBox='0 0 16 9' fill='none' %3E %3Cpath d='M15 1L8 8L1 1' stroke='rgba(0%2C%200%2C%200%2C%200.92)' stroke-linecap='round' stroke-linejoin='round'%3E %3C/path%3E %3C/svg%3E");
   background-repeat: no-repeat;
   background-size: 15px 7px;
-  background-position: right 18px top 51%;
+  background-position: right 0 top 51%;
 }
 
 .select:focus + .focus {

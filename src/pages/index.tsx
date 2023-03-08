@@ -58,7 +58,7 @@ export default function Home({
         >
           <option value="">Show all</option>
 
-          <optgroup label="By body type">
+          <optgroup label="Body type">
             {bodyTypes.map((type) => (
               <option key={type} value={type}>
                 {type.toUpperCase()}

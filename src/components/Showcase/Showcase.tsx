@@ -91,12 +91,7 @@ export const Showcase = <Data extends Record<"id", string>>({
 
   return (
     <div className={style.wrapper}>
-      <ul
-        id={listId}
-        className={style.list}
-        ref={listRef}
-        title={`A list with ${items.length} Recharge vehicles`}
-      >
+      <ul id={listId} className={style.list} ref={listRef}>
         {items.map((item) => (
           <ItemShowCase
             key={item.id}
@@ -115,7 +110,7 @@ export const Showcase = <Data extends Record<"id", string>>({
       >
         <ul className={style.spotlightControls}>
           {items.map((item, index) => (
-            <li key={item.id} aria-label={`Navigate to ${index + 1}`}>
+            <li key={item.id} aria-label={`Goto ${index + 1}`}>
               <button
                 className={style.spotlightControlItem}
                 onClick={() => {
@@ -136,7 +131,7 @@ export const Showcase = <Data extends Record<"id", string>>({
         className={style.sliderControl}
         role="navigation"
         aria-controls={listId}
-        aria-label="Move through vehicle list"
+        aria-label="slider"
       >
         <button
           className={style.controlButton}

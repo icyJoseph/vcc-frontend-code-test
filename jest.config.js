@@ -32,5 +32,3 @@ const jestConfigWithOverrides = async (...args) => {
 };
 
 module.exports = jestConfigWithOverrides;
-
-module.exports = createJestConfig(customJestConfig);

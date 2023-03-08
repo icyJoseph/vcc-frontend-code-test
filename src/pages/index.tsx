@@ -11,6 +11,7 @@ import type { Car } from "@/lib/types";
 
 import style from "@/styles/index.module.css";
 import { Select } from "@/components/Select";
+import { Text } from "@/components/Text";
 
 export const getStaticProps = async () => {
   const data = await readDB();
@@ -29,6 +30,12 @@ export const getStaticProps = async () => {
 };
 type BodyTypeSelector = Car["bodyType"] | "";
 
+const FilterLabel = (
+  <Text renderAs="span" variation="secondary">
+    Filter by body type
+  </Text>
+);
+
 export default function Home({
   cars,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
@@ -44,10 +51,12 @@ export default function Home({
   return (
     <main className={style.layout}>
       <section aria-label={"Recharge Cars"}>
-        <h1 className={style.mainHeading}>Recharge cars</h1>
+        <Text renderAs="h1" size="xl" className={style.mainHeading}>
+          Recharge cars
+        </Text>
 
         <Select
-          label="Filter by body type"
+          label={FilterLabel}
           onChange={(event) => {
             const value = event.target.value;
 

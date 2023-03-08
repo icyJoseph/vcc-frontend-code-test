@@ -1,0 +1,54 @@
+.typography {
+  /* a few design tokens */
+  --text-sm: 0.9rem;
+  --text-normal: 1rem;
+  --text-lg: 1.5rem;
+  --text-xl: 2rem;
+
+  font-family: "Volvo Novum", Arial, Helvetica, sans-serif;
+}
+
+.textSm {
+  font-size: 0.9rem;
+  font-size: var(--text-sm, 0.9rem);
+}
+
+.textMd {
+  font-size: 1rem; /* IE fallback */
+
+  font-size: var(--text-normal, 1rem);
+}
+
+.textLg {
+  font-size: 2rem;
+  font-size: var(--text-lg, 2rem);
+}
+
+.textXl {
+  font-size: 3rem;
+  font-size: var(--text-xl, 3rem);
+}
+
+.textBold {
+  font-weight: bold;
+}
+
+.textLight {
+  font-weight: 300;
+}
+
+.textNormal {
+  font-weight: normal;
+}
+
+.textHighlight {
+  font-weight: 500;
+}
+
+.textPrimary {
+  color: #141414;
+}
+
+.textSecondary {
+  color: #707070;
+}

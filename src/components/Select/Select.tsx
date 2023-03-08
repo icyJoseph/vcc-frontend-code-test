@@ -1,4 +1,4 @@
-import { ComponentProps, useId } from "react";
+import { type ComponentProps, type ReactNode, useId } from "react";
 
 import style from "./select.module.css";
 
@@ -6,7 +6,7 @@ export const Select = ({
   label,
   className = "",
   ...rest
-}: ComponentProps<"select"> & { label: string }) => {
+}: ComponentProps<"select"> & { label: ReactNode }) => {
   const selectId = useId();
   return (
     <fieldset className={style.field}>

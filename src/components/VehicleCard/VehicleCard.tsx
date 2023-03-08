@@ -7,6 +7,7 @@ import type { Car } from "@/lib/types";
 import ChevronSmall from "@/icons/chevron-small.svg";
 
 import style from "./vehicle-card.module.css";
+import { Text } from "../Text";
 
 export const VehicleCard = ({
   id,
@@ -21,11 +22,27 @@ export const VehicleCard = ({
     className={style.cardWrapper}
   >
     <header className={style.cardHeader}>
-      <span className={style.cardSubTitle}>{bodyType}</span>
+      <Text
+        renderAs="span"
+        variation="secondary"
+        weight="bold"
+        className={style.cardSubTitle}
+      >
+        {bodyType}
+      </Text>
 
       <div>
-        <h2 className={style.cardTitle}>{modelName}</h2>{" "}
-        <span>{modelType}</span>
+        <Text renderAs="h2" size="lg" className={style.cardTitle}>
+          {modelName}
+        </Text>{" "}
+        <Text
+          renderAs="span"
+          size="md"
+          weight="highlight"
+          variation="secondary"
+        >
+          {modelType}
+        </Text>
       </div>
     </header>
 
@@ -49,18 +66,20 @@ export const VehicleCard = ({
         <VisuallyHidden>
           Read more about {modelName}, {modelType}
         </VisuallyHidden>
-        <span aria-hidden="true">
+
+        <Text renderAs="span" weight="highlight" size="sm" aria-hidden="true">
           Learn <ChevronSmall className={style.rightArrow} />
-        </span>
+        </Text>
       </Link>
 
       <Link href={`/shop/${id}`} className={style.cardCallToAction}>
         <VisuallyHidden>
           Purchase {modelName}, {modelType}
         </VisuallyHidden>
-        <span aria-hidden="true">
+
+        <Text renderAs="span" weight="highlight" size="sm" aria-hidden="true">
           Shop <ChevronSmall className={style.rightArrow} />
-        </span>
+        </Text>
       </Link>
     </footer>
   </article>

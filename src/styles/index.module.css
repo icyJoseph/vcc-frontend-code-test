@@ -2,7 +2,11 @@
   margin: 0 auto;
 }
 
+.layout > section {
+  padding: 0 1rem;
+}
+
 .mainHeading {
-  padding-inline: 1rem;
-  padding-block: 0.5rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
 }

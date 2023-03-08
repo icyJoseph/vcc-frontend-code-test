@@ -66,6 +66,7 @@ export const Showcase = <Data extends Record<"id", string>>({
     [items]
   );
 
+  // Might be worth doing `useMemo`
   const [firstVisibleIndex, lastVisibleIndex] = calcVisibleBounds(visibleItems);
 
   const disableMoveBack = firstVisibleIndex === 0;

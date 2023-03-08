@@ -1,10 +1,10 @@
 import type { Car } from "@/lib/types";
 
 /* TS runtime checks */
-const bodyTypes: Array<Car["bodyType"]> = ["suv", "estate", "sedan"];
+export const bodyTypes: Array<Car["bodyType"]> = ["suv", "estate", "sedan"];
 const modelTypes: Array<Car["modelType"]> = ["plug-in hybrid", "pure electric"];
 
-function isBodyType(data: unknown): data is Car["bodyType"] {
+export function isBodyType(data: unknown): data is Car["bodyType"] {
   return Boolean(bodyTypes.find((type) => type === data));
 }
 

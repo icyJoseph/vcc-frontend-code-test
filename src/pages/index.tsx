@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import type { InferGetStaticPropsType } from "next";
+import Head from "next/head";
 
 import { Container } from "@/components/Container";
 import { Select } from "@/components/Select";
@@ -97,6 +98,10 @@ export default function Home({
 
   return (
     <>
+      <Head>
+        <title>VCC - Recharge</title>
+      </Head>
+
       <Container renderAs="section" aria-label={"Recharge Cars"}>
         <Text renderAs="h1" size="xl">
           Recharge cars

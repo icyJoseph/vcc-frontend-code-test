@@ -3,6 +3,7 @@ import type {
   GetServerSidePropsContext,
   InferGetServerSidePropsType,
 } from "next";
+import Head from "next/head";
 
 import { Container } from "@/components/Container";
 import { Paragraph } from "@/components/Paragraph";
@@ -56,6 +57,10 @@ const ReadMoreAboutVehicle = ({
 
   return (
     <>
+      <Head>
+        <title>Learn | {modelName}</title>
+      </Head>
+
       <Container renderAs="section" aria-labelledby={headingId}>
         <Text id={headingId} renderAs="h1" size="xl">
           Learn more

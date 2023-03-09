@@ -3,6 +3,7 @@ import type {
   GetServerSidePropsContext,
   InferGetServerSidePropsType,
 } from "next";
+import Head from "next/head";
 
 import { Container } from "@/components/Container";
 import { Paragraph } from "@/components/Paragraph";
@@ -48,42 +49,49 @@ const VehicleShop = ({
   const { id, modelName, modelType, bodyType, imageUrl } = carData;
 
   const headingId = useId();
+
   return (
-    <Container renderAs="section" aria-labelledby={headingId}>
-      <Text id={headingId} renderAs="h1" size="xl">
-        Purchase
-      </Text>
+    <>
+      <Head>
+        <title>Purchase | {modelName}</title>
+      </Head>
 
-      <VehicleHeader>
-        <VehicleTitle modelName={modelName} modelType={modelType} />
-
-        <Text renderAs="span" variation="secondary">
-          {bodyType.toUpperCase()}
+      <Container renderAs="section" aria-labelledby={headingId}>
+        <Text id={headingId} renderAs="h1" size="xl">
+          Purchase
         </Text>
-      </VehicleHeader>
 
-      {status === SOLD_OUT && <SoldOut />}
+        <VehicleHeader>
+          <VehicleTitle modelName={modelName} modelType={modelType} />
 
-      <VehicleCTALink href={`/learn/${id}`}>
-        <Text renderAs="span">Learn</Text>
-        <span aria-hidden="true">
-          <RightArrow />
-        </span>
-      </VehicleCTALink>
+          <Text renderAs="span" variation="secondary">
+            {bodyType.toUpperCase()}
+          </Text>
+        </VehicleHeader>
 
-      <VehicleImage src={imageUrl} alt={modelName} />
+        {status === SOLD_OUT && <SoldOut />}
 
-      <Paragraph>This vehicle is not available for purchase.</Paragraph>
+        <VehicleCTALink href={`/learn/${id}`}>
+          <Text renderAs="span">Learn</Text>
+          <span aria-hidden="true">
+            <RightArrow />
+          </span>
+        </VehicleCTALink>
 
-      <VehicleCTALink href="/">
-        <Text renderAs="span">back to main page</Text>
-        <span aria-hidden="true">
-          <RightArrow />
-        </span>
-      </VehicleCTALink>
+        <VehicleImage src={imageUrl} alt={modelName} />
 
-      <div className={spacer.vertical} />
-    </Container>
+        <Paragraph>This vehicle is not available for purchase.</Paragraph>
+
+        <VehicleCTALink href="/">
+          <Text renderAs="span">back to main page</Text>
+          <span aria-hidden="true">
+            <RightArrow />
+          </span>
+        </VehicleCTALink>
+
+        <div className={spacer.vertical} />
+      </Container>
+    </>
   );
 };
 

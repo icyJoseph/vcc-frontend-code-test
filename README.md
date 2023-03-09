@@ -44,3 +44,11 @@ Two extra SVG icons are also provided by our designer which are stored under `do
 
 - If you use our design system component library, [VCC-UI](https://vcc-ui.vercel.app/)
 - If you add a filter bar on the top to filter cars by `bodyType`
+
+## Running the project
+
+- Developed and tested with Node 16 and 18
+- Used `yarn@1.22.19`
+- For dev mode, `yarn` and `yarn dev` are enough
+- For production make sure you have an `.env` file with `CARS_DB_PATH`, as shown in `.env.example`
+- Run tests with `yarn test`

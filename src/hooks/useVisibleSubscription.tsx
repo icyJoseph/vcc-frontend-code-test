@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect, useCallback } from "react";
+import { useRef, useCallback } from "react";
 
 type onVisibleChange = (visible: boolean) => void;
 

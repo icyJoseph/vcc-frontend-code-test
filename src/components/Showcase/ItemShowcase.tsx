@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
 
 import { useVisibleSubscription } from "@/hooks/useVisibleSubscription";
+
 import style from "./showcase.module.css";
 
 type VoidVisibilityChangeCallback<Data> = (

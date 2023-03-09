@@ -122,3 +122,15 @@ test("Landing page with outdated cars", async () => {
 
   await waitFor(() => expect(() => screen.getByRole("alert")).toThrow());
 });
+
+test("Landing page with bad response", async () => {
+  server.use(
+    rest.get("/api/cars", (req, res, ctx) => {
+      return res(ctx.status(400, "Bad Request"));
+    })
+  );
+
+  render(<Home initialCars={mockData} />);
+
+  await waitFor(() => expect(screen.getByRole("alert")).toBeInTheDocument());
+});

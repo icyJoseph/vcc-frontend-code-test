@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+
 import { Text } from "@/components/Text";
 
 import style from "./paragraph.module.css";

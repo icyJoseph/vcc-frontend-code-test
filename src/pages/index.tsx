@@ -64,12 +64,14 @@ export default function Home({
     try {
       const response = await fetch("/api/cars", { signal: signal });
       // since we have "initial" data, we can just keep on showing that
-      if (!response.ok) return;
+      if (!response.ok) {
+        throw new Error("Failed to fetch response from cars api");
+      }
 
       const data = await response.json();
 
       if (!Array.isArray(data)) {
-        return setShowAlert(true);
+        throw new Error("Malformed JSON data from cars api");
       }
 
       const newCars = data.filter(isValidCar);
@@ -86,6 +88,7 @@ export default function Home({
       return setShowAlert(true);
     }
   }
+
   useEffect(() => {
     const controller = new AbortController();
 

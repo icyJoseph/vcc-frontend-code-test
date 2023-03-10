@@ -3,10 +3,12 @@ import { type ReactElement, useCallback, useId, useRef, useState } from "react";
 import { VisuallyHidden } from "@/components/VisuallyHidden/";
 
 import { ItemShowCase } from "./ItemShowcase";
+
 import style from "./showcase.module.css";
 
 type VisibilityChange<T> = (updated: T, isVisible: boolean) => void;
-type WithVisibility<T extends Record<"id", unknown>> = T & {
+type WithVisibility<T extends Record<"id", unknown>> = {
+  item: T;
   isVisible: boolean;
 };
 type RenderElement<T> = (props: T) => ReactElement;
@@ -54,12 +56,12 @@ export const Showcase = <Data extends Record<"id", string>>({
     (updated, isVisible) => {
       setVisibleItems((current) => {
         return items.map((item, index) => {
-          if (item === updated) return { ...item, isVisible };
+          if (item === updated) return { item, isVisible };
 
           const seen = current[index];
-          if (seen) return seen;
+          if (seen && seen.item === item) return seen;
 
-          return { ...item, isVisible: false };
+          return { item, isVisible: false };
         });
       });
     },

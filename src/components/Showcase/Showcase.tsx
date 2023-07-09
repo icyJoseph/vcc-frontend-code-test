@@ -32,7 +32,7 @@ const scrollListChildIntoView = (
 
   if (!child) return;
 
-  child.scrollIntoView();
+  child.scrollIntoView({ block: "nearest" });
 };
 
 export const Showcase = <Data extends Record<"id", string>>({
